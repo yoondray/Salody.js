@@ -18,18 +18,15 @@ $(document).ready(function(){
 		$.getJSON("/replies/"+bno+".json",function(data){
 				console.log("aaa="+data);
 				//크롬의 console창에 출력된 data
-				$(data).each(function(){
-				//$("").html 메소드
-				//$("#htmltest").html("abcd")
-				//html의 <ul>의 <li>에 들어갈 내용
-				//$("#replies").html("<li>190번 댓글입니다.</li>")
-				
-					str+="<li eachreno="+this.reno+" id=replies"+this.reno+">"
-					   +"<input type='hidden' id=comment"+this.reno
-					   +" value='"+this.reno+"'>"
-					   +this.replyText+"<div id=uptiv"+this.reno+
-						"></div><button id='del'>삭제</button>"
-					   +"<button id='upt'>수정</button></li>"
+$(data).each(function(){	
+				str+="<br><div id='repleP'><img src='/resources/img/replyImg.png' style='width:40px;'><input type='text' class='repleP' value='"
+				+this.replyPpl+"' style='align:center; font-size:18px; font-weight:bold; border:none; padding:0px 0px 14px 0px;'></div><li eachreno="+this.reno
+				+"id=replies"+this.reno+">"
+				+"<input type='hidden' id=comment"+this.reno
+				+"value='"+this.reno+"'>"+this.replyText
+				+"<div id=uptiv"+this.reno
+				+"></div><span id='reBtn' style='float:right;'><button id='del'>삭제</button>"
+				+"<button id='upt'>수정</button></span></li><br><br>"
 					//this. = data
 				
 				
@@ -47,9 +44,7 @@ $(document).ready(function(){
 		var replyText=$("#replyText").val();
 		var replyPpl=$("#replyPpl").val();
 		
-		//alert(replyText);
-		//alert(replyPpl);
-	//alert("Would you like to register your comment?") 
+
 	
 		//ajax 활용 - form태그
 		$.ajax({
@@ -86,7 +81,7 @@ $(document).ready(function(){
 			e.preventDefault();
 			var replyText=$(this).parent();
 			reno=replyText.attr("eachreno");
-			alert("삭제가능?"+reno)		
+			alert("댓글을 삭제하시겠습니까?")		
 			
 			$.ajax({
 				type:"delete",
@@ -109,7 +104,7 @@ $(document).ready(function(){
 		
 		//upt버튼 시작
 		$("#replies").on("click","#upt",function(e){
-			alert("수정가능한가?");
+			alert("댓글을 수정하시겠습니까?");
 			e.preventDefault();
 			var replyText=$(this).parent();
 			reno = replyText.attr("eachreno");
